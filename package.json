@@ -1,0 +1,32 @@
+{
+  "name": "weapp-boilerplate",
+  "version": "0.0.0",
+  "description": "A boilerplate application for wechat weapp runtime",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zce/weapp-boilerplate.git"
+  },
+  "keywords": [
+    "weapp",
+    "wechat",
+    "weixin",
+    "xiaochengxu",
+    "wechat-app",
+    "zce",
+    "iceStone",
+    "micua",
+    "micua.com",
+    "wedn",
+    "wedn.net"
+  ],
+  "author": "iceStone <ice@micua.com> (https://www.micua.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zce/weapp-boilerplate/issues"
+  },
+  "homepage": "https://github.com/zce/weapp-boilerplate#readme"
+}
