@@ -1,15 +1,6 @@
 function login () {
   return new Promise((resolve, reject) => {
-    wx.login({
-      success: () => {
-        console.log('logined')
-        resolve()
-      },
-      fail: () => {
-        console.log('fail')
-        reject()
-      }
-    })
+    wx.login({ success: resolve, fail: reject })
   })
 }
 

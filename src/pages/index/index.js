@@ -1,6 +1,6 @@
 /**
  * App instance
- * @type {App}
+ * @type {Object}
  */
 const app = getApp()
 

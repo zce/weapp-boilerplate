@@ -1,7 +1,11 @@
+const path = require('path')
+
 const gulp = require('gulp')
 const gulpLoadPlugins = require('gulp-load-plugins')
 const del = require('del')
 const runSequence = require('run-sequence')
+const inquirer = require('inquirer')
+const generatePage = require('generate-weapp-page')
 
 // load all gulp plugins
 const plugins = gulpLoadPlugins()
@@ -80,6 +84,15 @@ gulp.task('compile:json', () => {
 })
 
 /**
+ * Compile img source to distribution directory
+ */
+gulp.task('compile:img', () => {
+  return gulp.src(['src/**/*.{jpe?g,png,gif}'])
+    .pipe(plugins.imagemin())
+    .pipe(gulp.dest('dist'))
+})
+
+/**
  * Compile source to distribution directory
  */
 gulp.task('compile', ['clean'], next => {
@@ -87,14 +100,23 @@ gulp.task('compile', ['clean'], next => {
     'compile:js',
     'compile:xml',
     'compile:less',
-    'compile:json'
+    'compile:json',
+    'compile:img'
   ], next)
+})
+
+/**
+ * Copy extras to distribution directory
+ */
+gulp.task('extras', [], () => {
+  return gulp.src(['src/*.*', 'src/**/*.*', '!src/**/*.js', '!src/**/*.xml', '!src/**/*.less', '!src/**/*.json', '!src/**/*.{jpe?g,png,gif}'])
+    .pipe(gulp.dest('dist'))
 })
 
 /**
  * Build
  */
-gulp.task('build', ['lint'], next => runSequence(['compile'], next))
+gulp.task('build', ['lint'], next => runSequence(['compile', 'extras'], next))
 
 /**
  * Watch source change
@@ -109,6 +131,46 @@ gulp.task('watch', ['build'], () => {
 /**
  * Generate new page
  */
-gulp.task('generate', () => {
-
+gulp.task('generate', next => {
+  inquirer.prompt([
+    {
+      type: 'input',
+      name: 'pageName',
+      message: 'Input the page name',
+      default: 'index'
+    },
+    {
+      type: 'confirm',
+      name: 'needConfig',
+      message: 'Do you need a configuration file',
+      default: false
+    },
+    {
+      type: 'list',
+      name: 'styleType',
+      message: 'Select a style framework',
+      // choices: ['less', 'scss', 'css'],
+      choices: ['less'],
+      default: 'less'
+    }
+  ])
+  .then(options => {
+    const files = generatePage({
+      root: path.resolve(__dirname, './src/pages/'),
+      name: options.pageName,
+      less: options.styleType === 'less',
+      scss: options.styleType === 'scss',
+      css: options.styleType === 'css',
+      json: options.needConfig
+    })
+    files.forEach(file => plugins.util.log('[generate]', file))
+  })
+  .catch(err => {
+    throw new plugins.util.PluginError('generate', err)
+  })
 })
+
+/**
+ * Default task
+ */
+gulp.task('default', ['watch'])

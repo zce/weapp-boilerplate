@@ -2,6 +2,6 @@
 
 ## Auto convert
 
-less => wxss
+{css,less,scss}   =>  wxss
 
-xml  => wxml
+xml               =>  wxml
