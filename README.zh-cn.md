@@ -7,6 +7,18 @@
 [![devDependency Status](https://david-dm.org/zce/weapp-boilerplate/dev-status.svg)](https://david-dm.org/zce/weapp-boilerplate#info=devDependencies)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
+## 骨架特点
+
+- 开发阶段与生产阶段分离。
+- 自动化生成新页面文件及模板。
+- 以`Standard Code Style`校验全部的`js`和`json`文件。
+- 开发阶段`json`配置文件可以有注释，方便备注。
+- 开发阶段可以使用`less`完成样式编码，原因你懂得~ （如果你了解这些，当然可以支持`sass`等其他预处理样式）。
+- 借助`babel`自动进行`ES2015`特性转换，放心使用新特性。
+- 开发阶段用`xml`文件后缀取代`wxml`后缀，避免在开发工具中配置代码高亮。
+- Travis CI
+
+
 ## 将项目克隆到本地
 
 ```bash
@@ -20,11 +32,13 @@ $ git clone https://github.com/zce/weapp-boilerplate.git [project-name] --depth 
 $ cd [project-name]
 ```
 
+
 ## 安装项目`NPM`依赖
 
 ```bash
 $ npm install
 ```
+
 
 ## 使用
 
@@ -54,6 +68,13 @@ $ npm run build
 生产阶段的代码会经过压缩处理，最终输出到`dist`下。
 
 同样可以通过`微信Web开放者工具`测试。
+
+
+## 开发计划
+
+- [ ] 加入`ES2015`的`Polyfill`，支持类似`Promise`的新`API`；
+- [ ] 自动刷新`微信Web开放者工具`中的预览；
+- [ ] `HTML` to `WXML` 转换器，让大家可以直接使用`HTML`元素开发；
 
 
 ## 许可
