@@ -5,6 +5,7 @@
   "pages": [
     "pages/index/index",
     "pages/demo/demo"
+    // dont remove this comment
   ],
   // Window config
   // https://mp.weixin.qq.com/debug/wxadoc/dev/framework/config.html#window

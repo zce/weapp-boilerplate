@@ -1,3 +1,4 @@
+const fs = require('fs')
 const path = require('path')
 
 const gulp = require('gulp')
@@ -11,6 +12,31 @@ const generatePage = require('generate-weapp-page')
 const plugins = gulpLoadPlugins()
 const env = process.env.NODE_ENV || 'development'
 const isProduction = () => env === 'production'
+
+// utils functions
+function generateFile (options) {
+  const files = generatePage({
+    root: path.resolve(__dirname, './src/pages/'),
+    name: options.pageName,
+    less: options.styleType === 'less',
+    scss: options.styleType === 'scss',
+    css: options.styleType === 'css',
+    json: options.needConfig
+  })
+  files.forEach && files.forEach(file => plugins.util.log('[generate]', file))
+  return files
+}
+
+function generateJson (options) {
+  const filename = path.resolve(__dirname, 'src/app.json')
+  const now = fs.readFileSync(filename, 'utf8')
+  const temp = now.split('\n    // dont remove this comment')
+  if (temp.length !== 2) {
+    return plugins.util.log('[generate]', 'Append json failed')
+  }
+  const result = `${temp[0]},\n    "pages/${options.pageName}/${options.pageName}"\n    // dont remove this comment${temp[1]}`
+  fs.writeFileSync(filename, result)
+}
 
 /**
  * Clean distribution directory
@@ -163,15 +189,8 @@ gulp.task('generate', next => {
     }
   ])
   .then(options => {
-    const files = generatePage({
-      root: path.resolve(__dirname, './src/pages/'),
-      name: options.pageName,
-      less: options.styleType === 'less',
-      scss: options.styleType === 'scss',
-      css: options.styleType === 'css',
-      json: options.needConfig
-    })
-    files.forEach(file => plugins.util.log('[generate]', file))
+    const res = generateFile(options)
+    if (res) generateJson(options)
   })
   .catch(err => {
     throw new plugins.util.PluginError('generate', err)
