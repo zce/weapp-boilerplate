@@ -1,0 +1,31 @@
+{
+  // All pages must be here.
+  // First is default to view
+  // https://mp.weixin.qq.com/debug/wxadoc/dev/framework/config.html#pages
+  "pages": [
+    "pages/index/index",
+    "pages/demo/demo"
+  ],
+  // Window config
+  // https://mp.weixin.qq.com/debug/wxadoc/dev/framework/config.html#window
+  "window": {
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "list": [{
+      "pagePath": "pages/index/index",
+      "text": "Index"
+    }, {
+      "pagePath": "pages/demo/demo",
+      "text": "Demo"
+    }]
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  },
+  "debug": true
+}

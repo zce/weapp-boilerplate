@@ -1,0 +1,7 @@
+// Window config
+// https://mp.weixin.qq.com/debug/wxadoc/dev/framework/config.html#window
+{
+  "navigationBarBackgroundColor": "#000",
+  "navigationBarTitleText": "Demo page",
+  "navigationBarTextStyle":"white"
+}
