@@ -29,6 +29,8 @@
     // Boolean
     "enablePullDownRefresh": false
   },
+  // Tab bar configuration
+  // https://mp.weixin.qq.com/debug/wxadoc/dev/framework/config.html#tabBar
   "tabBar": {
     "color": "#ccc",
     "selectedColor": "#35495e",
@@ -43,15 +45,19 @@
       },
       {
         "text": "DEMO",
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/demo/demo",
         "iconPath": "images/icon_API.png",
         "selectedIconPath": "images/icon_API_HL.png"
       }
     ]
   },
+  // Network timeout configuration
+  // https://mp.weixin.qq.com/debug/wxadoc/dev/framework/config.html#networkTimeout
   "networkTimeout": {
     "request": 10000,
     "downloadFile": 10000
   },
+  // Debug log to console
+  // https://mp.weixin.qq.com/debug/wxadoc/dev/framework/config.html#debug
   "debug": true
 }

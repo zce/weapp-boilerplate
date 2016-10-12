@@ -109,8 +109,15 @@ gulp.task('compile', ['clean'], next => {
  * Copy extras to distribution directory
  */
 gulp.task('extras', [], () => {
-  return gulp.src(['src/*.*', 'src/**/*.*', '!src/**/*.js', '!src/**/*.xml', '!src/**/*.less', '!src/**/*.json', '!src/**/*.{jpe?g,png,gif}'])
-    .pipe(gulp.dest('dist'))
+  return gulp.src([
+    'src/**/*.*',
+    '!src/**/*.js',
+    '!src/**/*.xml',
+    '!src/**/*.less',
+    '!src/**/*.json',
+    '!src/**/*.{jpe?g,png,gif}'
+  ])
+  .pipe(gulp.dest('dist'))
 })
 
 /**
@@ -126,6 +133,7 @@ gulp.task('watch', ['build'], () => {
   gulp.watch('src/**/*.xml', ['compile:xml'])
   gulp.watch('src/**/*.less', ['compile:less'])
   gulp.watch('src/**/*.json', ['compile:json'])
+  gulp.watch('src/**/*.{jpe?g,png,gif}', ['compile:img'])
 })
 
 /**
