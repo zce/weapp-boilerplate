@@ -34,7 +34,11 @@ function generateJson (options) {
   if (temp.length !== 2) {
     return plugins.util.log('[generate]', 'Append json failed')
   }
-  const result = `${temp[0]},\n    "pages/${options.pageName}/${options.pageName}"\n    // dont remove this comment${temp[1]}`
+  const result = `${temp[0].trim()},
+    "pages/${options.pageName}/${options.pageName}"
+    // Dont remove this comment
+  ${temp[1].trim()}
+`
   fs.writeFileSync(filename, result)
 }
 
