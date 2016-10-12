@@ -118,7 +118,7 @@ gulp.task('compile:json', () => {
  * Compile img source to distribution directory
  */
 gulp.task('compile:img', () => {
-  return gulp.src(['src/**/*.{jpe?g,png,gif}'])
+  return gulp.src(['src/**/*.{jpg,jpeg,png,gif}'])
     .pipe(plugins.imagemin())
     .pipe(gulp.dest('dist'))
 })
