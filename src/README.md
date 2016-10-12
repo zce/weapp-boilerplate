@@ -2,6 +2,7 @@
 
 ## Auto convert
 
-{css,less,scss}   =>  wxss
-
-xml               =>  wxml
+- js                =>  js
+- xml               =>  wxml
+- {css,less,scss}   =>  wxss
+- json              =>  json

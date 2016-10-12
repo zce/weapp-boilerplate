@@ -30,7 +30,7 @@ function generateFile (options) {
 function generateJson (options) {
   const filename = path.resolve(__dirname, 'src/app.json')
   const now = fs.readFileSync(filename, 'utf8')
-  const temp = now.split('\n    // dont remove this comment')
+  const temp = now.split('\n    // Dont remove this comment')
   if (temp.length !== 2) {
     return plugins.util.log('[generate]', 'Append json failed')
   }
@@ -75,6 +75,7 @@ gulp.task('compile:xml', () => {
       collapseWhitespace: true,
       collapseBooleanAttributes: true,
       // removeAttributeQuotes: true,
+      keepClosingSlash: true, // xml
       removeComments: true,
       removeEmptyAttributes: true,
       removeScriptTypeAttributes: true,
