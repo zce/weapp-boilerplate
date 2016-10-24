@@ -8,6 +8,8 @@ const runSequence = require('run-sequence')
 const inquirer = require('inquirer')
 const generatePage = require('generate-weapp-page')
 
+const rsync = require('gulp-rsync')
+
 // load all gulp plugins
 const plugins = gulpLoadPlugins()
 const env = process.env.NODE_ENV || 'development'
@@ -126,14 +128,14 @@ gulp.task('compile:img', () => {
 /**
  * Compile source to distribution directory
  */
-gulp.task('compile', ['clean'], next => {
+gulp.task('compile', ['clean'], cb => {
   runSequence([
     'compile:js',
     'compile:xml',
     'compile:less',
     'compile:json',
     'compile:img'
-  ], next)
+  ], cb)
 })
 
 /**
@@ -154,7 +156,7 @@ gulp.task('extras', [], () => {
 /**
  * Build
  */
-gulp.task('build', ['lint'], next => runSequence(['compile', 'extras'], next))
+gulp.task('build', ['lint'], cb => runSequence(['compile', 'extras'], cb))
 
 /**
  * Watch source change
@@ -165,12 +167,13 @@ gulp.task('watch', ['build'], () => {
   gulp.watch('src/**/*.less', ['compile:less'])
   gulp.watch('src/**/*.json', ['compile:json'])
   gulp.watch('src/**/*.{jpe?g,png,gif}', ['compile:img'])
+  gulp.watch('dist/**', ['deploy'])
 })
 
 /**
  * Generate new page
  */
-gulp.task('generate', next => {
+gulp.task('generate', cb => {
   inquirer.prompt([
     {
       type: 'input',
@@ -200,6 +203,24 @@ gulp.task('generate', next => {
   .catch(err => {
     throw new plugins.util.PluginError('generate', err)
   })
+})
+
+gulp.task('deploy', () => {
+  return gulp.src('dist/**')
+    .pipe(rsync({
+      root: 'dist',
+      hostname: 'qmliu@192.168.30.244',
+      destination: '/mnt/e/web_apps/weapp_base/',
+      archive: true,
+      silent: true,
+      //  username: 'oswap',
+      chmod: 'ugo=rwX',
+      //  username: 'qmliu',
+      port: '2222',
+      clean: true,
+      //  progress: true,
+      compress: true
+    }))
 })
 
 /**
