@@ -216,7 +216,7 @@ gulp.task('deploy', () => {
       //  username: 'qmliu',
       port: '2222',
       clean: true,
-      //  progress: true,
+      progress: true,
       compress: true
     }))
 })
