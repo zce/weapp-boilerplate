@@ -51,10 +51,12 @@ gulp.task('clean', del.bind(null, ['dist/*']))
  * Lint source code
  */
 gulp.task('lint', () => {
-  return gulp.src(['*.{js,json}', '**/*.{js,json}', '!node_modules/**', '!dist/**'])
+
+  return gulp.src(['*.{js,json}', '**/*.{js,json}', '!node_modules/**', '!dist/**', '!**/bluebird.js'])
     .pipe($.eslint())
     .pipe($.eslint.format('node_modules/eslint-friendly-formatter'))
     .pipe($.eslint.failAfterError())
+
 })
 
 /**

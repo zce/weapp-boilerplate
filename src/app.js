@@ -4,7 +4,8 @@
  * 用于将微信官方`API`封装为`Promise`方式
  * > 小程序支持以`CommonJS`规范组织代码结构
  */
-const api = require('./utils/api.js')
+const wechat = require('./utils/wechat')
+const Promise = require('./utils/bluebird')
 
 App({
   /**
@@ -27,8 +28,8 @@ App({
   getUserInfo () {
     return new Promise((resolve, reject) => {
       if (this.data.userInfo) return reject(this.data.userInfo)
-      api.login()
-        .then(() => api.getUserInfo())
+      wechat.login()
+        .then(() => wechat.getUserInfo())
         .then(res => res.userInfo)
         .then(info => (this.data.userInfo = info))
         .then(info => resolve(info))
